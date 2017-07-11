@@ -34,6 +34,7 @@ export default {
         .then((response) => {
 
           this.albums = response.data.records;
+          return response.data.records;
         })
         .catch(function (error) {
           console.log(error);
