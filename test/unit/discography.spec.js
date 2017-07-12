@@ -1,4 +1,5 @@
 import test from 'ava';
+import Vue from 'vue';
 import { shallow, mount } from 'avoriaz';
 import moxios from 'moxios';
 import discography from '../../src/js/components/discography.vue'
@@ -9,10 +10,18 @@ function calc(num) {
   });
 }
 
-test('render h3' ,(t) => {
+test.beforeEach(t => {
   global.label = 'テスト';
+});
+
+test.afterEach(t => {
+  delete global.label
+});
+
+test('render h3' ,(t) => {
   const vm = mount(discography);
   t.deepEqual(vm.find('h3')[0].text(), global.label);
+  delete global.label;
 });
 
 test.cb('moxios', (t) => {
@@ -39,7 +48,29 @@ test.cb('moxios', (t) => {
   vm.find('button')[0].trigger('click');
 });
 
-test('非同期の書き方', async t => {
-  const bar = Promise.resolve('bar');
-  t.is(await bar, 'bar')
+test('ava de vue mount' ,(t) => {
+  const Constructor = Vue.extend(discography);
+  const vm = new Constructor().$mount();
+  t.is(vm.$el.querySelector('h1').textContent, 'ava-avoriaz-vuejs');
 });
+
+
+// sample async/await functions
+function resolveAfter2Seconds(x) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(x);
+    }, 2000);
+  });
+}
+async function add2(x) {
+  var a = await resolveAfter2Seconds(20);
+  var b = await resolveAfter2Seconds(30);
+  return x + a + b;
+}
+
+test('async/await', async t => {
+  const v = await add2(10);
+  t.is(v, 60)
+});
+

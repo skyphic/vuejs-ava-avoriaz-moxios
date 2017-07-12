@@ -20,7 +20,7 @@ export default {
   name: 'discography',
   data() {
     return {
-      msg: 'avoriaz-mocha-webpack-vuejs',
+      msg: 'ava-avoriaz-vuejs',
       artist: 'TTB',
       subTitle: SubTitle(),
       albums : []
