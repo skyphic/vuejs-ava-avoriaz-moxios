@@ -55,7 +55,7 @@ test('ava de vue mount' ,(t) => {
 });
 
 
-// sample async/await functions
+//おまけ async/await functions
 function resolveAfter2Seconds(x) {
   return new Promise(resolve => {
     setTimeout(() => {
