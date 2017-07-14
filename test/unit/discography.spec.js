@@ -4,29 +4,24 @@ import { shallow, mount } from 'avoriaz';
 import moxios from 'moxios';
 import discography from '../../src/js/components/discography.vue'
 
-function calc(num) {
-  return new Promise(resolve => {
-    resolve(num * num);
-  });
-}
-
 test.beforeEach(t => {
-  global.label = 'テスト';
+  window.label = 'テスト';
+  window.globalText = 'ここはキャッチです。'
 });
 
 test.afterEach(t => {
-  delete global.label
+  delete window.label;
+  delete window.globalText;
 });
 
 test('render h3' ,(t) => {
-  const vm = mount(discography);
-  t.deepEqual(vm.find('h3')[0].text(), global.label);
-  delete global.label;
+  const wrapper = mount(discography);
+  t.deepEqual(wrapper.find('h3')[0].text(), window.label);
 });
 
 test.cb('moxios', (t) => {
   moxios.install();
-  const vm = mount(discography);
+  const wrapper = mount(discography);
 
   moxios.wait(function () {
     let request = moxios.requests.mostRecent();
@@ -39,20 +34,22 @@ test.cb('moxios', (t) => {
       }
 
     }).then(function () {
-      const listText = vm.find('li')[0].text();
+      const listText = wrapper.find('li')[0].text();
       t.is(listText, '2012-Revelator');
       t.end()
     });
   });
 
-  vm.find('button')[0].trigger('click');
+  wrapper.find('button')[0].trigger('click');
 });
+
 
 test('ava de vue mount' ,(t) => {
   const Constructor = Vue.extend(discography);
   const vm = new Constructor().$mount();
   t.is(vm.$el.querySelector('h1').textContent, 'ava-avoriaz-vuejs');
 });
+
 
 
 //おまけ async/await functions

@@ -1,4 +1,4 @@
 const subTitle = () => {
-  return label;
+  return window.label;
 };
 export default subTitle;
