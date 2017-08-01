@@ -3,7 +3,8 @@
 		<h1>{{ msg }}</h1>
 		<button @click="fetchData">Get Data</button>
 		<h2>{{artist}}</h2>
-    <h3>{{subTitle}}</h3>
+		<h3>{{subTitle}}</h3>
+		<p>{{catchText}}</p>
     <ul>
       <li v-for="item in albums">{{item.year}}-{{item.name}}</li>
     </ul>
@@ -15,6 +16,7 @@
   import SubTitle from './sub_title';
 
   const apiUrl = 'ttb.json';
+  const globalText = window.globalText;
 
 export default {
   name: 'discography',
@@ -23,8 +25,13 @@ export default {
       msg: 'ava-avoriaz-vuejs',
       artist: 'TTB',
       subTitle: SubTitle(),
+      catchText: globalText,
       albums : []
     };
+  },
+  mounted () {
+    document.querySelector('#btn-to-top').className = "hide";
+
   },
   methods: {
     fetchData() {
