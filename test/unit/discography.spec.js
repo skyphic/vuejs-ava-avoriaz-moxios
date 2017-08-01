@@ -4,14 +4,17 @@ import { shallow, mount } from 'avoriaz';
 import moxios from 'moxios';
 import discography from '../../src/js/components/discography.vue'
 
+
 test.beforeEach(t => {
   window.label = 'テスト';
-  window.globalText = 'ここはキャッチです。'
+  window.globalText = 'ここはキャッチです。';
+  window.document.body.innerHTML = '<div id="component"></div><section id="btn-to-top">button</section>';
 });
 
 test.afterEach(t => {
   delete window.label;
   delete window.globalText;
+  window.document.body.innerHTML = '';
 });
 
 test('render h3' ,(t) => {
@@ -43,14 +46,17 @@ test.cb('moxios', (t) => {
   wrapper.find('button')[0].trigger('click');
 });
 
-
 test('ava de vue mount' ,(t) => {
   const Constructor = Vue.extend(discography);
   const vm = new Constructor().$mount();
   t.is(vm.$el.querySelector('h1').textContent, 'ava-avoriaz-vuejs');
 });
 
-
+test('Access to objects outside the component' ,(t) => {
+  const Constructor = Vue.extend(discography);
+  const vm = new Constructor().$mount('#component');
+  t.true(document.querySelector('#btn-to-top').classList.contains('hide'));
+});
 
 //おまけ async/await functions
 function resolveAfter2Seconds(x) {

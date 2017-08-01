@@ -17,7 +17,6 @@
 
   const apiUrl = 'ttb.json';
   const globalText = window.globalText;
-  const toTopBtn = document.querySelector('.js-list-search__btn-to-top');
 
 export default {
   name: 'discography',
@@ -31,7 +30,8 @@ export default {
     };
   },
   mounted () {
-//    toTopBtn.classList.add('is-hidden');
+    document.querySelector('#btn-to-top').className = "hide";
+
   },
   methods: {
     fetchData() {
