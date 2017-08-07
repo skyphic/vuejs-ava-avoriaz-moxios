@@ -38,6 +38,19 @@ test.serial('sinon', async t => {
   sandbox.restore();
 });
 
+test.serial('axios error', async t => {
+
+  let sandbox;
+  sandbox = sinon.sandbox.create();
+  const rejected = new Promise((_, r) => r());
+  sandbox.stub(axios, 'get').returns(rejected);
+
+  const wrapper = mount(discography);
+  const rep = await wrapper.vm.fetchData();
+  t.is(rep, 'error');
+  sandbox.restore();
+});
+
 test('ava de vue mount' ,(t) => {
   const Constructor = Vue.extend(discography);
   const vm = new Constructor().$mount();
@@ -49,6 +62,8 @@ test('Access to objects outside the component' ,(t) => {
   const vm = new Constructor().$mount('#component');
   t.true(document.querySelector('#btn-to-top').classList.contains('hide'));
 });
+
+
 
 //おまけ async/await functions
 function resolveAfter2Seconds(x) {
