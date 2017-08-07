@@ -1,7 +1,7 @@
 <template>
 	<div class="foo">
 		<h1>{{ msg }}</h1>
-		<button @click="fetchData">Get Data</button>
+		<button @click="buttonClick">Get Data</button>
 		<h2>{{artist}}</h2>
 		<h3>{{subTitle}}</h3>
 		<p>{{catchText}}</p>
@@ -40,11 +40,14 @@ export default {
       })
         .then((response) => {
 
-          this.albums = response.data.records;
+          return response.data.records;
         })
         .catch(function (error) {
           console.log(error);
         });
+    },
+    buttonClick() {
+      this.albums = this.fetchData();
     }
   }
 };

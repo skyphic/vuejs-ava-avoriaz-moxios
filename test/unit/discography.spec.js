@@ -1,7 +1,8 @@
 import test from 'ava';
 import Vue from 'vue';
+import sinon from 'sinon';
 import { shallow, mount } from 'avoriaz';
-import moxios from 'moxios';
+import axios from 'axios';
 import discography from '../../src/js/components/discography.vue'
 
 
@@ -22,28 +23,19 @@ test('render h3' ,(t) => {
   t.deepEqual(wrapper.find('h3')[0].text(), window.label);
 });
 
-test.cb('moxios', (t) => {
-  moxios.install();
+test.serial('sinon', async t => {
+  const respData = {
+    "records": 'test'
+  };
+  let sandbox;
+  sandbox = sinon.sandbox.create();
+  const resolved = new Promise((r) => r({ data: respData }));
+  sandbox.stub(axios, 'get').returns(resolved);
   const wrapper = mount(discography);
+  const rep = await wrapper.vm.fetchData();
 
-  moxios.wait(function () {
-    let request = moxios.requests.mostRecent();
-    request.respondWith({
-      status: 200,
-      response: {
-        "records": [
-          {"year": "2012", "name": "Revelator"}
-        ]
-      }
-
-    }).then(function () {
-      const listText = wrapper.find('li')[0].text();
-      t.is(listText, '2012-Revelator');
-      t.end()
-    });
-  });
-
-  wrapper.find('button')[0].trigger('click');
+  t.is(rep, 'test');
+  sandbox.restore();
 });
 
 test('ava de vue mount' ,(t) => {

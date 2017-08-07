@@ -1,7 +1,7 @@
 {
-  "name": "vuejs-ava-avoriaz-moxios",
+  "name": "vuejs-ava-avoriaz-sinonJS",
   "version": "1.0.0",
-  "description": "This is an example of the settings of the code coverage report with ava,moxios,avoriaz and vue.js",
+  "description": "This is an example of the settings of the code coverage report with ava,sinonJS,avoriaz and vue.js",
   "scripts": {
     "spec": "npm-run-all -p spec:*",
     "spec:delcoverage": "rimraf test/coverage",
@@ -39,13 +39,13 @@
     "babel-preset-es2017": "^6.24.1",
     "babel-register": "^6.24.1",
     "browser-env": "^3.1.0",
-    "moxios": "^0.4.0",
     "npm-run-all": "^4.0.2",
     "nyc": "^11.0.3",
     "require-extension-hooks": "^0.2.0",
     "require-extension-hooks-babel": "^0.1.1",
     "require-extension-hooks-vue": "^0.3.1",
     "rimraf": "^2.6.1",
+    "sinon": "^3.0.0",
     "vue-loader": "^13.0.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.3.4"
