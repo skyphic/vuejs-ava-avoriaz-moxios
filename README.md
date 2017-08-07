@@ -1,7 +1,7 @@
-# vuejs-ava-avoriaz-moxios
+# vuejs-ava-avoriaz-sinonJS
 unit test for vuejs
 ``` js
 yarn install
-npm run spec
+yarn run spec
 ```
 
