@@ -42,8 +42,8 @@ export default {
 
           return response.data.records;
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch(function () {
+           return 'error';
         });
     },
     buttonClick() {
